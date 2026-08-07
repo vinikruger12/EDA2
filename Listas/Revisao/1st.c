@@ -23,12 +23,9 @@ int main(){
     memset(hash, 0, sizeof(hash));
 
     for(int i = 0;i < tam;i++){
+        int c = target - v[i];
+        if (c >= -metade && c <= metade && hash[metade + c] >= 1) { ans = 1; break; }
         hash[metade + v[i]]++;
-        if(target - v[i] != v[i]) hash[metade + target - v[i]]++;
-        if(hash[metade + v[i]] >= 2){
-            ans = 1;
-            break;
-        }
         
     }
 
