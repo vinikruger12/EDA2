@@ -24,7 +24,10 @@ int main(){
 
     for(int i = 0;i < tam;i++){
         int c = target - v[i];
-        if (c >= -metade && c <= metade && hash[metade + c] >= 1) { ans = 1; break; }
+        if(c >= -metade && c <= metade && hash[metade + c] >= 1){
+            ans = 1; 
+            break; 
+        }
         hash[metade + v[i]]++;
         
     }
