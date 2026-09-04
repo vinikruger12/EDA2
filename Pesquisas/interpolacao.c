@@ -2,19 +2,24 @@
 #include <stdlib.h>
 #include <time.h>
 
-int pesquisaBinaria(int chave, int v[], int n){
-    int contador = 1;
+int pesquisaInterpolacao(int chave, int v[], int n){
+    int contador = 3;
     int l = 0, r = (n-1);
-    while(l <= r){
-        int m = (l+r)/2;
+    while(l <= r && chave >= v[l] && chave <= v[r]){
+        contador++;
+        if(l == r) return contador;
+
+        int m = l + (((double) (r - l) / (v[r] - v[l])) * (chave - v[l]));
+
         contador++;
         if(v[m] == chave) return contador;
         else if(v[m] < chave) l = m + 1;
         else r = m - 1;;
-        contador += 2;
+        contador += 4;
     }
 
     return contador;
+
 }
 
 void swap(int i, int j, int vetor[]){
@@ -61,9 +66,9 @@ int main(int argc, char* argv[]){
     geraVetor(n, v);
     quicksort(0, n-1, v);
 
-    printf("Melhor caso: %d\n", pesquisaBinaria(v[(n-1)/2], v, n));
-    printf("Pior caso: %d\n", pesquisaBinaria(n, v, n));
-    printf("Caso médio: %d\n", pesquisaBinaria(v[rand() % n], v, n));
+    printf("Melhor caso: %d\n", pesquisaInterpolacao((((double) (n-1) / (v[n-1] - v[0])) * (0 - v[0])), v, n));
+    printf("Pior caso: %d\n", pesquisaInterpolacao(n, v, n));
+    printf("Caso médio: %d\n", pesquisaInterpolacao(v[rand() % n], v, n));
 
 
 
