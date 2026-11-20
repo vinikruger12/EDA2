@@ -6,7 +6,8 @@ Vinicius Moreira Krüger, Gustavo Bada Zanatta, Lucas da Silva e Gustavo Holdere
 
 - `codigo`: árvores (`avl`, `rubronegra`, `arvoreb`, cada uma com `.c` e `.h`), `main.c`, `graficos.py` e `chaves.csv`
 - `resultados`: `resultado_adicao.csv`, `resultado_remocao.csv` e os gráficos
-- `relatorio`: relatório em LaTeX e o `Relatorio.pdf`
+- `relatorio`: arquivos LaTeX do relatório (`main.tex` e as figuras)
+- `Relatorio.pdf`: relatório final, na raiz desta pasta
 
 ## Como rodar
 

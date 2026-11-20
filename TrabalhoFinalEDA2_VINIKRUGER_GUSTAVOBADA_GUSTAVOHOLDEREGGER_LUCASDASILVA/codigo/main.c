@@ -196,7 +196,7 @@ int main() {
     printf("%-6s | %-15s | %-15s | %-15s | %-15s | %-15s\n", "N", "AVL", "RUBRO-NEGRA", "B ORDEM 1", "B ORDEM 5", "B ORDEM 10");
     printf("-------+-----------------+-----------------+-----------------+-----------------+----------------\n");
 
-    for (int n = PASSO; n <= TAM; n += PASSO) {
+    for (int n = 1; n <= TAM; n = (n == 1) ? PASSO : n + PASSO) {
         long long somaAdicao[5] = {0, 0, 0, 0, 0};
         long long somaRemocao[5] = {0, 0, 0, 0, 0};
 

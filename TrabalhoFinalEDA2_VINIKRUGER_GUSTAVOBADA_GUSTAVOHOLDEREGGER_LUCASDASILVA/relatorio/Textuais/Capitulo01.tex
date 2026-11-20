@@ -44,16 +44,16 @@ O esforço foi medido contando operações, e não tempo, para que o resultado n
 
 Na primeira execução, o programa gera 10 conjuntos de 10.000 chaves aleatórias e diferentes com a função \texttt{rand} e salva tudo no arquivo \texttt{chaves.csv}, com um conjunto por coluna. Nas execuções seguintes ele só lê esse arquivo, então as chaves não mudam e as cinco árvores sempre recebem exatamente os mesmos dados.
 
-Para cada tamanho $N$, de 10 em 10 até 10.000, e para cada um dos 10 conjuntos, o programa cria as cinco árvores, adiciona as $N$ primeiras chaves do conjunto e depois remove essas mesmas chaves, na mesma ordem em que foram adicionadas, até a árvore ficar vazia. Como as chaves são aleatórias, a ordem de remoção também é aleatória.
+Para cada tamanho $N$ (primeiro $N = 1$ e depois de 10 em 10 até 10.000) e para cada um dos 10 conjuntos, o programa cria as cinco árvores, adiciona as $N$ primeiras chaves do conjunto e depois remove essas mesmas chaves, na mesma ordem em que foram adicionadas, até a árvore ficar vazia. Como as chaves são aleatórias, a ordem de remoção também é aleatória.
 
-O valor salvo para cada $N$ é o esforço médio por operação: o total contado dividido pelas $N$ operações e pelos 10 conjuntos. Os resultados ficam nos arquivos \texttt{resultado\_adicao.csv} e \texttt{resultado\_remocao.csv}, na pasta \texttt{resultados}, com uma coluna para cada árvore. Ao final, o programa também mostra a altura de cada árvore com as 10.000 chaves do primeiro conjunto.
+O valor salvo para cada $N$ é o esforço médio por operação: o total contado dividido pelas $N$ operações e pelos 10 conjuntos. Escolhemos mostrar a média por operação, e não o esforço total para adicionar ou remover as $N$ chaves, porque assim o custo de cada operação, que é o que a complexidade $O(\log n)$ descreve, aparece direto no gráfico. O esforço total é esse valor multiplicado por $N$ e cresce na ordem de $N \log N$. Os resultados ficam nos arquivos \texttt{resultado\_adicao.csv} e \texttt{resultado\_remocao.csv}, na pasta \texttt{resultados}, com uma coluna para cada árvore. Ao final, o programa também mostra a altura de cada árvore com as 10.000 chaves do primeiro conjunto.
 
 \section{COMPILAÇÃO E EXECUÇÃO}
 
 Os programas foram compilados pela linha de comando, sem uso de IDE. Os comandos devem ser executados dentro da pasta \texttt{codigo}:
 
 \begin{flushleft}
-\ttfamily
+\ttfamily\small
 \noindent gcc -Wall -Wextra -std=c11 -O2 main.c avl.c rubronegra.c arvoreb.c -o main\\
 ./main
 \end{flushleft}
@@ -61,7 +61,7 @@ Os programas foram compilados pela linha de comando, sem uso de IDE. Os comandos
 A execução completa levou 3 minutos no nosso computador. Depois que ela termina, os gráficos são gerados com Python 3:
 
 \begin{flushleft}
-\ttfamily
+\ttfamily\small
 \noindent python3 -m pip install pandas matplotlib\\
 python3 graficos.py
 \end{flushleft}
@@ -117,7 +117,7 @@ A Tabela~\ref{tab:resultados} mostra os valores para 1.000 e 10.000 chaves e a a
 
 As cinco curvas têm o formato esperado para $O(\log n)$: sobem rápido no começo e depois vão ficando quase planas. Na adição da AVL, por exemplo, o esforço médio foi de 4,16 com 10 chaves, 8,62 com 100, 12,16 com 1.000 e 15,58 com 10.000. A cada dez vezes mais chaves, cada operação ficou só umas 3 ou 4 operações mais cara, que é bem perto de $\log_2 10 \approx 3{,}3$. Se o crescimento fosse linear, o esforço teria sido multiplicado por dez a cada passo. No começo dos gráficos as linhas oscilam um pouco, porque com poucas chaves a média depende muito de quais chaves foram sorteadas.
 
-A rubro-negra teve o menor esforço nas duas operações. Ela e a AVL ficaram com a mesma altura, então a busca custa quase o mesmo nas duas, e a diferença está no balanceamento. A AVL recalcula a altura dos nós no caminho de volta e faz mais rotações para manter a regra do fator de balanceamento, enquanto a rubro-negra na maioria das vezes resolve trocando poucas cores.
+A rubro-negra teve o menor esforço nas duas operações. Ela e a AVL ficaram com a mesma altura, então a busca custa quase o mesmo nas duas, e a diferença está no balanceamento. A AVL recalcula a altura de cada nó no caminho de volta, enquanto a rubro-negra só entra no laço de correção quando o pai do nó inserido ou removido é vermelho, e na maioria das vezes resolve trocando poucas cores. O número de rotações foi parecido nas duas: com 10.000 chaves, cerca de 0,7 por adição na AVL e 0,6 na rubro-negra, e cerca de 0,4 por remoção nas duas.
 
 A árvore B de ordem 1 ficou perto da AVL. Nas ordens 5 e 10 a árvore fica bem mais baixa, com 5 e 4 níveis, mas o esforço aumentou. Isso acontece porque, mesmo com menos níveis, a busca binária dentro de cada nó faz a quantidade de comparações continuar parecida. Além disso, para manter as chaves em ordem dentro do nó, cada adição ou remoção precisa deslocar várias chaves, e isso pesa mais quanto maior é o nó.
 
