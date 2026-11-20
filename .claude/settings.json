@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gcc --version)",
+      "Bash(python3 -c \"import matplotlib, pandas, numpy; print\\('mpl', matplotlib.__version__, 'pd', pandas.__version__, 'np', numpy.__version__\\)\")",
+      "Read(//Library/TeX/**)",
+      "Bash(kpsewhich abntex2.cls)",
+      "Bash(sysctl -n hw.ncpu)",
+      "Bash(sysctl -n machdep.cpu.brand_string)",
+      "Bash(python3 -c \"import fitz\")",
+      "Bash(curl -sI https://github.com -o /dev/null -w \"%{http_code}\\\\n\" --max-time 10)",
+      "Bash(python3 -)",
+      "Bash(gcc -g -O0 -fsanitize=address -w debug_b.c -o debug_b)",
+      "Bash(./debug_b teste *)",
+      "WebSearch",
+      "Bash(gcc -O2 -w rn_a.c -o rn_a)",
+      "Bash(./rn_a)",
+      "Bash(awk '{print $10, $11, $12}')",
+      "Bash(python3 graficos.py)",
+      "Read(//Applications/**)",
+      "Bash(docker info *)",
+      "Bash(open -a Docker)",
+      "Bash(break)",
+      "Bash(docker pull *)",
+      "Bash(cd /Users/viniciuskruger/Documents/UDESC/Estudos/EDAII/TrabalhoFinalEDA2_VINIKRUGER_GUSTAVOBADA_GUSTAVOHOLDERREGER_LUCASDASILVA && rm -f codigo/gera_chaves.c codigo/executar.sh codigo/ordem_remocao.csv codigo/chaves.csv codigo/resultado_*.csv codigo/grafico_*.png Relatorio.pdf && mkdir -p resultados && find . -type f | sort)",
+      "Bash(docker exec *)",
+      "Bash(pgrep -lf \"Docker.app\" | head -5; echo \"---\"; ls -la ~/Library/Containers/com.docker.docker/Data/log/host/ 2>/dev/null | tail -3; tail -20 ~/Library/Containers/com.docker.docker/Data/log/host/com.docker.backend.log 2>/dev/null | cut -c1-220)",
+      "Read(//Users/viniciuskruger/Library/Containers/com.docker.docker/Data/log/host/**)"
+    ],
+    "additionalDirectories": [
+      "/Users/viniciuskruger/Documents/UDESC/Estudos/EDAII/codigo"
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+% Pacotes/configurações necessários, para independência dos arquivos
+% auxiliares não fornecidos com o modelo principal UDESC.
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext,newtxmath} % fonte serifada semelhante à Times New Roman
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{array}
+\usepackage{microtype}
+\usepackage{url}
+\hypersetup{hidelinks}
+
+% Margens adotadas pelo modelo acadêmico: superior/esquerda 3 cm;
+% inferior/direita 2 cm, papel A4.
+\setlrmarginsandblock{3cm}{2cm}{*}
+\setulmarginsandblock{3cm}{2cm}{*}
+\checkandfixthelayout
+
+\OnehalfSpacing
+\setlength{\parindent}{1.25cm}
+\setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{2em}
+\tightlists % listas sem espaço extra entre os itens
+
+% Numeração de relatório curto sem capítulos (1, 2, 3 e 3.1, 3.2 etc.).
+% A classe abnTeX2 assume a existência de capítulos e, sem ajuste, usa 0.1.
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+% Âncoras únicas para figuras e tabelas (sem capítulo, o hyperref repetiria 0.1, 0.2...).
+\renewcommand{\theHfigure}{\arabic{figure}}
+\renewcommand{\theHtable}{\arabic{table}}
+
+% Seções e subseções no formato numérico e em letras maiúsculas,
+% sem forçar início de cada seção em página nova.
+\setsecheadstyle{\normalfont\bfseries\normalsize}
+\setsubsecheadstyle{\normalfont\bfseries\normalsize}
+\setbeforesecskip{1.4\baselineskip}
+\setaftersecskip{0.7\baselineskip}
+\setbeforesubsecskip{0.9\baselineskip}
+\setaftersubsecskip{0.5\baselineskip}
+
+% Página numerada em fonte 10, no canto superior direito.
+\makepagestyle{PagNumReduzida}
+\makeoddhead{PagNumReduzida}{}{}{\fontsize{10}{12}\selectfont\thepage}
+\makeevenhead{PagNumReduzida}{}{}{\fontsize{10}{12}\selectfont\thepage}
+\makeoddfoot{PagNumReduzida}{}{}{}
+\makeevenfoot{PagNumReduzida}{}{}{}
+
+% Rótulos e legendas do PDF original.
+\renewcommand{\tablename}{Tabela}
+\renewcommand{\figurename}{Figura}
+\captionnamefont{\normalfont\normalsize}
+\captiontitlefont{\normalfont\normalsize}
+\captiondelim{ -- }
