@@ -1,6 +1,6 @@
 # Trabalho final de EDA2 - Árvores AVL, rubro-negra e B
 
-Vinicius Moreira Krüger, Gustavo Bada Zanatta, Lucas da Silva e Gustavo Holderegger
+Vinicius Moreira Krüger, Gustavo Bada Zanatta, Lucas da Silva, Gustavo Holderegger e Arthur Perozin
 
 ## Pastas
 

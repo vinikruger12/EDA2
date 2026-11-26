@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "rubronegra.h"
 
-NoRN* criarNo(ArvoreRN* arvore, NoRN* pai, int valor) {
+static NoRN* criarNo(ArvoreRN* arvore, NoRN* pai, int valor) {
     NoRN* no = malloc(sizeof(NoRN));
 
     no->pai = pai;
@@ -13,7 +13,7 @@ NoRN* criarNo(ArvoreRN* arvore, NoRN* pai, int valor) {
     return no;
 }
 
-ArvoreRN* criarRN() {
+ArvoreRN* criarRN(void) {
     ArvoreRN* arvore = malloc(sizeof(ArvoreRN));
     arvore->nulo = NULL;
 
@@ -25,7 +25,7 @@ ArvoreRN* criarRN() {
     return arvore;
 }
 
-void rotacionarEsquerda(ArvoreRN* arvore, NoRN* no) {
+static void rotacionarEsquerda(ArvoreRN* arvore, NoRN* no) {
     contador++;
 
     NoRN* direita = no->direita;
@@ -49,7 +49,7 @@ void rotacionarEsquerda(ArvoreRN* arvore, NoRN* no) {
     no->pai = direita;
 }
 
-void rotacionarDireita(ArvoreRN* arvore, NoRN* no) {
+static void rotacionarDireita(ArvoreRN* arvore, NoRN* no) {
     contador++;
 
     NoRN* esquerda = no->esquerda;
@@ -73,7 +73,7 @@ void rotacionarDireita(ArvoreRN* arvore, NoRN* no) {
     no->pai = esquerda;
 }
 
-void balancear(ArvoreRN* arvore, NoRN* no) {
+static void balancear(ArvoreRN* arvore, NoRN* no) {
     while (no->pai->cor == Vermelho) {
         contador++;
 
@@ -119,7 +119,7 @@ void balancear(ArvoreRN* arvore, NoRN* no) {
     arvore->raiz->cor = Preto;
 }
 
-NoRN* adicionarNo(ArvoreRN* arvore, NoRN* no, int valor) {
+static NoRN* adicionarNo(ArvoreRN* arvore, NoRN* no, int valor) {
     contador++;
 
     if (valor > no->valor) {
@@ -153,7 +153,7 @@ void adicionarRN(ArvoreRN* arvore, int valor) {
     }
 }
 
-NoRN* localizarRN(ArvoreRN* arvore, int valor) {
+static NoRN* localizarRN(ArvoreRN* arvore, int valor) {
     NoRN* no = arvore->raiz;
 
     while (no != arvore->nulo) {
@@ -169,7 +169,7 @@ NoRN* localizarRN(ArvoreRN* arvore, int valor) {
     return NULL;
 }
 
-void transplantar(ArvoreRN* arvore, NoRN* u, NoRN* v) {
+static void transplantar(ArvoreRN* arvore, NoRN* u, NoRN* v) {
     if (u->pai == arvore->nulo) {
         arvore->raiz = v;
     } else if (u == u->pai->esquerda) {
@@ -181,7 +181,7 @@ void transplantar(ArvoreRN* arvore, NoRN* u, NoRN* v) {
     v->pai = u->pai;
 }
 
-NoRN* minimo(ArvoreRN* arvore, NoRN* no) {
+static NoRN* minimo(ArvoreRN* arvore, NoRN* no) {
     contador++;
 
     while (no->esquerda != arvore->nulo) {
@@ -192,7 +192,7 @@ NoRN* minimo(ArvoreRN* arvore, NoRN* no) {
     return no;
 }
 
-void balancearRemocao(ArvoreRN* arvore, NoRN* x) {
+static void balancearRemocao(ArvoreRN* arvore, NoRN* x) {
     while (x != arvore->raiz && x->cor == Preto) {
         contador++;
 
@@ -299,7 +299,7 @@ void removerRN(ArvoreRN* arvore, int valor) {
     }
 }
 
-int alturaNoRN(ArvoreRN* arvore, NoRN* no) {
+static int alturaNoRN(ArvoreRN* arvore, NoRN* no) {
     if (no == arvore->nulo) {
         return 0;
     }
@@ -314,7 +314,7 @@ int alturaRN(ArvoreRN* arvore) {
     return alturaNoRN(arvore, arvore->raiz);
 }
 
-void liberarNoRN(ArvoreRN* arvore, NoRN* no) {
+static void liberarNoRN(ArvoreRN* arvore, NoRN* no) {
     if (no != arvore->nulo) {
         liberarNoRN(arvore, no->esquerda);
         liberarNoRN(arvore, no->direita);

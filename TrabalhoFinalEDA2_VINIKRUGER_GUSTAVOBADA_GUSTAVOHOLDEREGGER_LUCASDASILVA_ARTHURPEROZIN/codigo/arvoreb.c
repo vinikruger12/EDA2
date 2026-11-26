@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "arvoreb.h"
 
-NoB* criaNo(ArvoreB* arvore) {
+static NoB* criaNo(ArvoreB* arvore) {
     int max = arvore->ordem * 2;
     NoB* no = malloc(sizeof(NoB));
 
@@ -26,7 +26,7 @@ ArvoreB* criaArvore(int ordem) {
     return arvore;
 }
 
-int pesquisaBinaria(NoB* no, int chave) {
+static int pesquisaBinaria(NoB* no, int chave) {
     int inicio = 0, fim = no->total - 1, meio;
 
     while (inicio <= fim) {
@@ -45,7 +45,7 @@ int pesquisaBinaria(NoB* no, int chave) {
     return inicio;
 }
 
-NoB* localizaNo(ArvoreB* arvore, int chave) {
+static NoB* localizaNo(ArvoreB* arvore, int chave) {
     NoB* no = arvore->raiz;
 
     while (no->filhos[0] != NULL) {
@@ -56,7 +56,7 @@ NoB* localizaNo(ArvoreB* arvore, int chave) {
     return no;
 }
 
-void adicionaChaveNo(NoB* no, NoB* novo, int chave) {
+static void adicionaChaveNo(NoB* no, NoB* novo, int chave) {
     int i = pesquisaBinaria(no, chave);
 
     for (int j = no->total - 1; j >= i; j--) {
@@ -70,11 +70,11 @@ void adicionaChaveNo(NoB* no, NoB* novo, int chave) {
     no->total++;
 }
 
-int transbordo(ArvoreB* arvore, NoB* no) {
+static int transbordo(ArvoreB* arvore, NoB* no) {
     return no->total > arvore->ordem * 2;
 }
 
-NoB* divideNo(ArvoreB* arvore, NoB* no) {
+static NoB* divideNo(ArvoreB* arvore, NoB* no) {
     contador++;
 
     int meio = no->total / 2;
@@ -104,7 +104,7 @@ NoB* divideNo(ArvoreB* arvore, NoB* no) {
     return novo;
 }
 
-void adicionaChaveRecursivo(ArvoreB* arvore, NoB* no, NoB* novo, int chave) {
+static void adicionaChaveRecursivo(ArvoreB* arvore, NoB* no, NoB* novo, int chave) {
     adicionaChaveNo(no, novo, chave);
 
     if (transbordo(arvore, no)) {
@@ -130,13 +130,13 @@ void adicionaChave(ArvoreB* arvore, int chave) {
     adicionaChaveRecursivo(arvore, no, NULL, chave);
 }
 
-void liberaNo(NoB* no) {
+static void liberaNo(NoB* no) {
     free(no->chaves);
     free(no->filhos);
     free(no);
 }
 
-void removeChaveNo(NoB* no, int i) {
+static void removeChaveNo(NoB* no, int i) {
     for (int j = i; j < no->total - 1; j++) {
         contador++;
         no->chaves[j] = no->chaves[j + 1];
@@ -147,11 +147,11 @@ void removeChaveNo(NoB* no, int i) {
     no->filhos[no->total + 1] = NULL;
 }
 
-int subfluxo(ArvoreB* arvore, NoB* no) {
+static int subfluxo(ArvoreB* arvore, NoB* no) {
     return no->total < arvore->ordem;
 }
 
-int indiceFilho(NoB* pai, NoB* filho) {
+static int indiceFilho(NoB* pai, NoB* filho) {
     int i = 0;
 
     while (pai->filhos[i] != filho) {
@@ -162,7 +162,7 @@ int indiceFilho(NoB* pai, NoB* filho) {
     return i;
 }
 
-void emprestaEsquerda(NoB* pai, int i) {
+static void emprestaEsquerda(NoB* pai, int i) {
     contador++;
 
     NoB* no = pai->filhos[i];
@@ -189,7 +189,7 @@ void emprestaEsquerda(NoB* pai, int i) {
     esquerdo->total--;
 }
 
-void emprestaDireita(NoB* pai, int i) {
+static void emprestaDireita(NoB* pai, int i) {
     contador++;
 
     NoB* no = pai->filhos[i];
@@ -209,7 +209,7 @@ void emprestaDireita(NoB* pai, int i) {
     removeChaveNo(direito, 0);
 }
 
-void juntaNos(NoB* pai, int i) {
+static void juntaNos(NoB* pai, int i) {
     contador++;
 
     NoB* esquerdo = pai->filhos[i];
@@ -240,7 +240,7 @@ void juntaNos(NoB* pai, int i) {
     liberaNo(direito);
 }
 
-void corrigeSubfluxo(ArvoreB* arvore, NoB* no) {
+static void corrigeSubfluxo(ArvoreB* arvore, NoB* no) {
     if (no->pai == NULL) {
         if (no->total == 0 && no->filhos[0] != NULL) {
             arvore->raiz = no->filhos[0];
@@ -321,7 +321,7 @@ int alturaB(ArvoreB* arvore) {
     return niveis;
 }
 
-void liberaNos(NoB* no) {
+static void liberaNos(NoB* no) {
     if (no->filhos[0] != NULL) {
         for (int i = 0; i <= no->total; i++) {
             liberaNos(no->filhos[i]);
