@@ -26,7 +26,7 @@ def grafico(arquivo, titulo, saida):
     plt.xlim(0, 10000)
     plt.ylim(bottom=0)
     plt.grid(True, linestyle='--', alpha=0.5)
-    plt.legend(fontsize=12)
+    plt.legend(fontsize=12, loc='lower right')
 
     plt.tight_layout()
     plt.savefig(saida, dpi=300)

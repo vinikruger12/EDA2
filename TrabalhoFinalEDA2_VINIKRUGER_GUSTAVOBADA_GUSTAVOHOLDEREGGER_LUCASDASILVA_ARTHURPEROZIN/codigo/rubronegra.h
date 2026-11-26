@@ -19,7 +19,7 @@ typedef struct arvoreRN {
 
 extern long long contador;
 
-ArvoreRN* criarRN();
+ArvoreRN* criarRN(void);
 void adicionarRN(ArvoreRN* arvore, int valor);
 void removerRN(ArvoreRN* arvore, int valor);
 int alturaRN(ArvoreRN* arvore);
