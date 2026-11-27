@@ -15,7 +15,7 @@ typedef struct arvoreAVL {
 
 extern long long contador;
 
-ArvoreAVL* criarAVL();
+ArvoreAVL* criarAVL(void);
 void adicionarAVL(ArvoreAVL* arvore, int valor);
 void removerAVL(ArvoreAVL* arvore, int valor);
 int alturaAVL(ArvoreAVL* arvore);

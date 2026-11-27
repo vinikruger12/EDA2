@@ -14,7 +14,7 @@ long long contador = 0;
 int chaves[AMOSTRAS][TAM];
 char usada[LIMITE];
 
-void geraChaves() {
+static int geraChaves(void) {
     srand(time(NULL));
 
     for (int s = 0; s < AMOSTRAS; s++) {
@@ -36,6 +36,10 @@ void geraChaves() {
 
     FILE* fp = fopen("chaves.csv", "w");
 
+    if (fp == NULL) {
+        return 0;
+    }
+
     fprintf(fp, "amostra1");
 
     for (int s = 1; s < AMOSTRAS; s++) {
@@ -55,9 +59,10 @@ void geraChaves() {
     }
 
     fclose(fp);
+    return 1;
 }
 
-int lerChaves() {
+static int lerChaves(void) {
     FILE* fp = fopen("chaves.csv", "r");
 
     if (fp == NULL) {
@@ -84,7 +89,7 @@ int lerChaves() {
     return 1;
 }
 
-void testaAVL(int v[], int n, long long* adicao, long long* remocao) {
+static void testaAVL(int v[], int n, long long* adicao, long long* remocao) {
     ArvoreAVL* arvore = criarAVL();
 
     contador = 0;
@@ -104,7 +109,7 @@ void testaAVL(int v[], int n, long long* adicao, long long* remocao) {
     liberarAVL(arvore);
 }
 
-void testaRN(int v[], int n, long long* adicao, long long* remocao) {
+static void testaRN(int v[], int n, long long* adicao, long long* remocao) {
     ArvoreRN* arvore = criarRN();
 
     contador = 0;
@@ -124,7 +129,7 @@ void testaRN(int v[], int n, long long* adicao, long long* remocao) {
     liberarRN(arvore);
 }
 
-void testaB(int ordem, int v[], int n, long long* adicao, long long* remocao) {
+static void testaB(int ordem, int v[], int n, long long* adicao, long long* remocao) {
     ArvoreB* arvore = criaArvore(ordem);
 
     contador = 0;
@@ -144,7 +149,7 @@ void testaB(int ordem, int v[], int n, long long* adicao, long long* remocao) {
     liberaArvore(arvore);
 }
 
-void mostraAlturas() {
+static void mostraAlturas(void) {
     ArvoreAVL* avl = criarAVL();
     ArvoreRN* rn = criarRN();
     ArvoreB* b1 = criaArvore(1);
@@ -173,10 +178,14 @@ void mostraAlturas() {
     liberaArvore(b10);
 }
 
-int main() {
+int main(void) {
     if (!lerChaves()) {
         printf("Gerando chaves.csv\n\n");
-        geraChaves();
+
+        if (!geraChaves()) {
+            printf("Nao foi possivel criar chaves.csv\n");
+            return 1;
+        }
     }
 
     FILE* adicao = fopen("../resultados/resultado_adicao.csv", "w");

@@ -2,19 +2,19 @@
 #include <stdlib.h>
 #include "avl.h"
 
-int max(int a, int b) {
+static int max(int a, int b) {
     return a > b ? a : b;
 }
 
-int altura(NoAVL* no) {
+static int altura(NoAVL* no) {
     return no != NULL ? no->altura : 0;
 }
 
-int fb(NoAVL* no) {
+static int fb(NoAVL* no) {
     return altura(no->esquerda) - altura(no->direita);
 }
 
-NoAVL* rse(ArvoreAVL* arvore, NoAVL* no) {
+static NoAVL* rse(ArvoreAVL* arvore, NoAVL* no) {
     contador++;
 
     NoAVL* pai = no->pai;
@@ -44,7 +44,7 @@ NoAVL* rse(ArvoreAVL* arvore, NoAVL* no) {
     return direita;
 }
 
-NoAVL* rsd(ArvoreAVL* arvore, NoAVL* no) {
+static NoAVL* rsd(ArvoreAVL* arvore, NoAVL* no) {
     contador++;
 
     NoAVL* pai = no->pai;
@@ -74,17 +74,17 @@ NoAVL* rsd(ArvoreAVL* arvore, NoAVL* no) {
     return esquerda;
 }
 
-NoAVL* rde(ArvoreAVL* arvore, NoAVL* no) {
+static NoAVL* rde(ArvoreAVL* arvore, NoAVL* no) {
     no->direita = rsd(arvore, no->direita);
     return rse(arvore, no);
 }
 
-NoAVL* rdd(ArvoreAVL* arvore, NoAVL* no) {
+static NoAVL* rdd(ArvoreAVL* arvore, NoAVL* no) {
     no->esquerda = rse(arvore, no->esquerda);
     return rsd(arvore, no);
 }
 
-void balanceamento(ArvoreAVL* arvore, NoAVL* no) {
+static void balanceamento(ArvoreAVL* arvore, NoAVL* no) {
     while (no != NULL) {
         contador++;
 
@@ -115,7 +115,7 @@ void balanceamento(ArvoreAVL* arvore, NoAVL* no) {
     }
 }
 
-ArvoreAVL* criarAVL() {
+ArvoreAVL* criarAVL(void) {
     ArvoreAVL* arvore = malloc(sizeof(ArvoreAVL));
     arvore->raiz = NULL;
 
@@ -163,7 +163,7 @@ void adicionarAVL(ArvoreAVL* arvore, int valor) {
     }
 }
 
-NoAVL* localizarAVL(NoAVL* no, int valor) {
+static NoAVL* localizarAVL(NoAVL* no, int valor) {
     while (no != NULL) {
         contador++;
 
@@ -220,7 +220,7 @@ int alturaAVL(ArvoreAVL* arvore) {
     return altura(arvore->raiz);
 }
 
-void liberarNoAVL(NoAVL* no) {
+static void liberarNoAVL(NoAVL* no) {
     if (no != NULL) {
         liberarNoAVL(no->esquerda);
         liberarNoAVL(no->direita);
